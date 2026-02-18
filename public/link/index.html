@@ -4,24 +4,24 @@
   <meta charset="UTF-8">
   <title>Open App</title>
   <script>
-    function getHashFromPath() {
-      const path = window.location.pathname; // /link/abc
-      const parts = path.split("/");
-      return parts.length > 2 ? parts[2] : null;
+  function getHash() {
+    const parts = window.location.pathname.split("/");
+    return parts.pop() || parts.pop(); // handles trailing slash
+  }
+
+  window.onload = function () {
+    const hash = getHash();
+
+    if (hash) {
+      window.location.replace(`encontrao_vda://${hash}`);
+
+      setTimeout(() => {
+        window.location.href =
+          "https://play.google.com/store/apps/details?id=com.vda.encontraovda";
+      }, 2000);
     }
-
-    window.onload = function () {
-      const hash = getHashFromPath();
-
-      if (hash) {
-        window.location.replace(`encontrao_vda://${hash}`);
-
-        setTimeout(() => {
-          window.location.href = "https://play.google.com/store/apps/details?id=com.vda.encontraovda";
-        }, 2000);
-      }
-    };
-  </script>
+  };
+</script>
 </head>
 <body>
   <p>Opening app...</p>
