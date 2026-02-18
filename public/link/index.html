@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Open App</title>
+        <script>
+            // Extract hash from URL (e.g., /link/?hash=YOUR_HASH)
+            function getHash() {
+                const params = new URLSearchParams(window.location.search);
+                return params.get('hash');
+            }
+
+            window.onload = function() {
+                const hash = getHash();
+                if (hash) {
+                    window.location.href = `encontrao_vda://${hash}`;
+
+                    setTimeout(() => {
+                        // Optionally redirect to Play Store if app not installed
+                        window.location.href = "https://play.google.com/store/apps/details?id=com.vda.encontraovda";
+                    }, 4000);
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <p>Opening app...</p>
+    </body>
+</html>
