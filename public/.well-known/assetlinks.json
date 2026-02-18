@@ -2,7 +2,7 @@
   {
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
-      "namespace": "encontrao_vda",
+      "namespace": "android_app",
       "package_name": "com.vda.encontraovda",
       "sha256_cert_fingerprints": [
         "67:75:F5:EF:19:32:8A:09:2E:6A:77:04:52:76:C9:8D:FB:0D:86:31:6D:2B:33:A0:6C:32:22:C6:75:E6:9E:55"
