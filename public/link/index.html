@@ -5,7 +5,6 @@
         <meta charset="UTF-8">
         <title>Open App</title>
         <script>
-            // Extract hash from URL (e.g., /link/?hash=YOUR_HASH)
             function getHash() {
                 const params = new URLSearchParams(window.location.search);
                 return params.get('hash');
@@ -14,16 +13,38 @@
             window.onload = function() {
                 const hash = getHash();
                 if (hash) {
-                    // window.location.href = `encontrao_vda://${hash}`;
-                    window.location.replace(`encontrao_vda://${hash}`);
+                    // Try to open the app using iframe (prevents 404 fallback)
+                    var iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = `encontrao_vda://${hash}`;
+                    document.body.appendChild(iframe);
 
                     setTimeout(() => {
-                        // Optionally redirect to Play Store if app not installed
-                        window.location.href = "https://play.google.com/store/apps/details?id=com.vda.encontraovda";
-                    }, 4000);
+                        window.location.replace("https://play.google.com/store/apps/details?id=com.vda.encontraovda");
+                    }, 2000);
                 }
             }
         </script>
+        <!-- <script> -->
+        <!--     // Extract hash from URL (e.g., /link/?hash=YOUR_HASH) -->
+        <!--     function getHash() { -->
+        <!--         const params = new URLSearchParams(window.location.search); -->
+        <!--         return params.get('hash'); -->
+        <!--     } -->
+        <!---->
+        <!--     window.onload = function() { -->
+        <!--         const hash = getHash(); -->
+        <!--         if (hash) { -->
+        <!--             // window.location.href = `encontrao_vda://${hash}`; -->
+        <!--             window.location.replace(`encontrao_vda://${hash}`); -->
+        <!---->
+        <!--             setTimeout(() => { -->
+        <!--                 // Optionally redirect to Play Store if app not installed -->
+        <!--                 window.location.href = "https://play.google.com/store/apps/details?id=com.vda.encontraovda"; -->
+        <!--             }, 4000); -->
+        <!--         } -->
+        <!--     } -->
+        <!-- </script> -->
     </head>
 
     <body>
