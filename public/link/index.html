@@ -14,7 +14,8 @@
             window.onload = function() {
                 const hash = getHash();
                 if (hash) {
-                    window.location.href = `encontrao_vda://${hash}`;
+                    // window.location.href = `encontrao_vda://${hash}`;
+                    window.location.replace(`encontrao_vda://${hash}`);
 
                     setTimeout(() => {
                         // Optionally redirect to Play Store if app not installed
