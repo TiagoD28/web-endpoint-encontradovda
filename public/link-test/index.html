@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open App</title>
+  <script>
+  function getHash() {
+    const parts = window.location.pathname.split("/");
+    return parts.pop() || parts.pop(); // handles trailing slash
+  }
+
+  window.onload = function () {
+    const hash = getHash();
+
+    if (hash) {
+        window.location.href = "encontrao_vda://YjUzZDRjNjEtZDM4YS00MjEyLTgyYjktY2E2YzE5YTFhNjBj";
+
+      setTimeout(() => {
+        window.location.href =
+          "https://play.google.com/store/apps/details?id=com.vda.encontraovda";
+      }, 2000);
+    }
+  };
+</script>
+</head>
+<body>
+  <p>Opening app...</p>
+</body>
+</html>

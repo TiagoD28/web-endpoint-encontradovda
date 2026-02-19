@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Open Encontrao VdA</title>
+
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+        padding: 30px;
+        text-align: center;
+    }
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+        max-width: 400px;
+        margin: auto;
+    }
+    h1 {
+        margin-bottom: 10px;
+        color: #222;
+    }
+    p {
+        color: #444;
+        margin-bottom: 20px;
+    }
+    button {
+        background: #0066ff;
+        color: white;
+        border: none;
+        padding: 14px 22px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 90%;
+    }
+    button:active {
+        opacity: 0.8;
+    }
+    #qr {
+        margin-top: 20px;
+        display: none;
+    }
+</style>
+
+<script>
+function getHash() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("hash") || localStorage.getItem("pendingHash") || "";
+}
+
+function isAndroid() {
+    return /Android/i.test(navigator.userAgent);
+}
+
+function isIOS() {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function isMobile() {
+    return isAndroid() || isIOS();
+}
+
+function openApp() {
+    const hash = getHash();
+    const deepLink = `encontrao_vda://${hash}`;
+
+    // Save hash if app is not yet installed
+    localStorage.setItem("pendingHash", hash);
+
+    // Try to open the app
+    window.location.href = deepLink;
+
+    // Fallback
+    setTimeout(() => {
+        if (isAndroid()) {
+            window.location.href = "https://play.google.com/store/apps/details?id=com.vda.encontraovda";
+        } else if (isIOS()) {
+            window.location.href = "https://apps.apple.com/"; // Replace your App Store link
+        }
+    }, 1800);
+}
+
+window.onload = function () {
+    const hash = getHash();
+
+    // Auto attempt only on mobile
+    if (isMobile() && hash) {
+        openApp();
+    }
+
+    // For desktop users → show QR
+    if (!isMobile()) {
+        document.querySelector("#qr").style.display = "block";
+        new QRious({
+            element: document.getElementById("qr"),
+            value: window.location.href,
+            size: 220
+        });
+    }
+};
+</script>
+
+</head>
+<body>
+
+<div class="card">
+    <h1>Encontrao VdA</h1>
+    <p>Tap the button to open the app.  
+    If you don’t have it installed, you’ll be redirected.</p>
+
+    <button onclick="openApp()">Open App</button>
+
+    <canvas id="qr"></canvas>
+
+    <p id="desktopNote" style="display:none;">
+        Scan the QR code to open on your phone.
+    </p>
+</div>
+
+<script>
+if (!isMobile()) {
+    document.getElementById("desktopNote").style.display = "block";
+}
+</script>
+
+</body>
+</html>
