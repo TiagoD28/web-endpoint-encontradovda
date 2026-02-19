@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open App</title>
+  <script>
+    function getHash() {
+        const parts = window.location.pathname.split("/");
+        return parts.pop() || parts.pop(); // handles trailing slash
+    }
+
+    function isMobile() {
+        return /Mobi|Android/i.test(navigator.userAgent);
+    }
+
+    function openApp() {
+        const hash = getHash();
+        if (!hash) return;
+
+        // Try to open the app
+        // window.location.href = "encontrao_vda://" + hash;
+        window.location.href = "encontrao_vda://YjUzZDRjNjEtZDM4YS00MjEyLTgyYjktY2E2YzE5YTFhNjBj";
+
+        // Fallback to Play Store after 2 seconds
+        setTimeout(() => {
+            window.location.href = "https://play.google.com/store/apps/details?id=com.vda.encontraovda";
+        }, 2500);
+
+        // Display hash on page
+        const hashElem = document.getElementById("hashValue");
+        if (hashElem) hashElem.textContent = hash;
+    }
+
+    window.onload = openApp;
+
+    // Show desktop note
+    if (!isMobile()) {
+        const desktopNote = document.getElementById("desktopNote");
+        if (desktopNote) desktopNote.style.display = "block";
+    }
+    </script>
+</head>
+<body>
+    <div class="card">
+        <h1>Encontrao VdA</h1>
+        <p>Tap the button to open the app.  
+        If you don’t have it installed, you’ll be redirected.</p>
+
+        <button onclick="openApp()">Open App</button>
+        <p>Hash value: <span id="hashValue"></span></p>
+
+        <canvas id="qr"></canvas>
+
+        <p id="desktopNote" style="display:none;">
+            Scan the QR code to open on your phone.
+        </p>
+    </div>
+<script>
+if (!isMobile()) {
+    document.getElementById("desktopNote").style.display = "block";
+}
+
+    document.getElementById("desktopNote").style.display = "block";
+</script>
+
+</body>
+</html>
